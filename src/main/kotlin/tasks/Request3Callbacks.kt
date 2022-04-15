@@ -1,7 +1,12 @@
 package tasks
 
-import contributors.*
-import java.util.*
+import contributors.GitHubService
+import contributors.RequestData
+import contributors.User
+import contributors.log
+import contributors.logRepos
+import contributors.logUsers
+import java.util.concurrent.CountDownLatch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,14 +20,16 @@ fun loadContributorsCallbacks(
     logRepos(req, responseRepos)
     val repos = responseRepos.bodyList()
     val allUsers = mutableListOf<User>()
+    val latch = CountDownLatch(repos.size)
     for (repo in repos) {
       service.getRepoContributorsCall(req.org, repo.name).onResponse { responseUsers ->
         logUsers(repo, responseUsers)
         val users = responseUsers.bodyList()
         allUsers += users
+        latch.countDown()
       }
     }
-    // TODO: Why this code doesn't work? How to fix that?
+    latch.await()
     updateResults(allUsers.aggregate())
   }
 }
