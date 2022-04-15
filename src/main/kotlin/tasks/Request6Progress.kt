@@ -7,5 +7,5 @@ suspend fun loadContributorsProgress(
     req: RequestData,
     updateResults: suspend (List<User>, completed: Boolean) -> Unit
 ) {
-    TODO()
+  TODO()
 }

@@ -6,5 +6,5 @@ import org.slf4j.LoggerFactory
 val log: Logger = LoggerFactory.getLogger("Samples")
 
 fun log(msg: Any?) {
-    log.info(msg.toString())
+  log.info(msg.toString())
 }
