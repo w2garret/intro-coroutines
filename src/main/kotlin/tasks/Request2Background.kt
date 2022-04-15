@@ -10,5 +10,5 @@ fun loadContributorsBackground(
     req: RequestData,
     updateResults: (List<User>) -> Unit
 ) {
-  thread { loadContributorsBlocking(service, req) }
+  thread { updateResults(loadContributorsBlocking(service, req)) }
 }
