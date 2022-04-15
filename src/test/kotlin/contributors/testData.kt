@@ -10,18 +10,40 @@ const val reposDelay = 1000L
 
 val testRepos =
     listOf(
-        TestRepo("repo-1", 1000, listOf(User("user-1", 10), User("user-2", 20))),
-        TestRepo("repo-2", 1200, listOf(User("user-2", 30), User("user-1", 40))),
-        TestRepo("repo-3", 800, listOf(User("user-2", 50), User("user-3", 60))))
+        TestRepo(
+            "repo-1",
+            1000,
+            listOf(
+                User("user-1", 10),
+                User("user-2", 20),
+            )),
+        TestRepo(
+            "repo-2",
+            1200,
+            listOf(
+                User("user-2", 30),
+                User("user-1", 40),
+            )),
+        TestRepo(
+            "repo-3",
+            800,
+            listOf(
+                User("user-2", 50),
+                User("user-3", 60),
+            )))
 
 val repos = testRepos.mapIndexed { index, testRepo -> Repo(index.toLong(), testRepo.name) }
 
-val reposMap = testRepos.associate { it.name to it }
+val reposMap = testRepos.associateBy { it.name }
 
 val expectedResults =
     TestResults(
         4000, // 1000 + (1000 + 1200 + 800)
-        listOf(User("user-2", 100), User("user-3", 60), User("user-1", 50)))
+        listOf(
+            User("user-2", 100),
+            User("user-3", 60),
+            User("user-1", 50),
+        ))
 
 val expectedConcurrentResults =
     TestResults(

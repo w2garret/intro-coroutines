@@ -30,7 +30,6 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$coroutinesVersion")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutinesVersion")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
-  testImplementation("junit:junit:4.13.2")
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
   testImplementation(kotlin("test"))
 }

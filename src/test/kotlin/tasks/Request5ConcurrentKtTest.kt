@@ -3,16 +3,17 @@ package tasks
 import contributors.MockGithubService
 import contributors.expectedConcurrentResults
 import contributors.testRequestData
+import kotlin.test.DefaultAsserter.assertEquals
+import kotlin.test.DefaultAsserter.assertTrue
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class Request5ConcurrentKtTest {
   @Test
   fun testConcurrent() = runBlocking {
     val startTime = System.currentTimeMillis()
     val result = loadContributorsConcurrent(MockGithubService, testRequestData)
-    Assert.assertEquals(
+    assertEquals(
         "Wrong result for 'loadContributorsConcurrent'", expectedConcurrentResults.users, result)
     val totalTime = System.currentTimeMillis() - startTime
     /*
@@ -23,7 +24,7 @@ class Request5ConcurrentKtTest {
         expectedConcurrentResults.timeFromStart, totalTime
     )
     */
-    Assert.assertTrue(
+    assertTrue(
         "The calls run concurrently, so the total virtual time should be 2200 ms: " +
             "1000 ms for repos request plus max(1000, 1200, 800) = 1200 ms for concurrent contributors requests)",
         totalTime in
