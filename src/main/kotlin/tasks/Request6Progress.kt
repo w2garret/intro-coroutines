@@ -15,10 +15,7 @@ suspend fun loadContributorsProgress(
   var contributors = listOf<User>()
   for ((index, repo) in repos.withIndex()) {
     val users =
-        service
-            .getRepoContributors(req.org, repo.name)
-            .also { logUsers(repo, it) }
-            .bodyList()
+        service.getRepoContributors(req.org, repo.name).also { logUsers(repo, it) }.bodyList()
     contributors = (contributors + users).aggregate()
     updateResults(contributors, index == repos.lastIndex)
   }
