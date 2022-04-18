@@ -3,12 +3,10 @@ package tasks
 import contributors.GitHubService
 import contributors.RequestData
 import contributors.User
-import contributors.log
 import contributors.logRepos
 import contributors.logUsers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 suspend fun loadContributorsChannels(
@@ -22,7 +20,6 @@ suspend fun loadContributorsChannels(
 
     for (repo in repos) {
       launch {
-        log("starting loading for ${repo.name}").also { delay(3000) }
         val users =
             service.getRepoContributors(req.org, repo.name).also { logUsers(repo, it) }.bodyList()
         channel.send(users)
